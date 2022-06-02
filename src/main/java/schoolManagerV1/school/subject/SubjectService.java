@@ -19,7 +19,11 @@ public class SubjectService {
         return subjectRepository.findAll();
     }
 
-    public void addNewService(Subject subject) {
+    public void addNewSubject(Subject subject) {
         subjectRepository.save(subject);
+    }
+
+    public Subject getSubject(Long subjectId) {
+        return subjectRepository.findById(subjectId).get();
     }
 }

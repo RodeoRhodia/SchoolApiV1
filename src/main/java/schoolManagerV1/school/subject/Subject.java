@@ -1,6 +1,10 @@
 package schoolManagerV1.school.subject;
 
+import schoolManagerV1.school.student.Student;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "subject")
 @Table
@@ -13,10 +17,18 @@ public class Subject {
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.IDENTITY,
+            strategy = GenerationType.AUTO,
             generator = "subject_sequence"
     )
     Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_enrolled",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<Student> enrolledStudents = new HashSet<>();
 
     private String name;
 
@@ -36,5 +48,13 @@ public class Subject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public void enrollStudent(Student student) {
+        enrolledStudents.add(student);
     }
 }

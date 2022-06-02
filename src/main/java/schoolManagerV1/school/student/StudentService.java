@@ -22,4 +22,8 @@ public class StudentService {
     public void addNewStudent(Student student) {
         studentRepository.save(student);
     }
+
+    public Student getSubject(Long studentId) {
+        return studentRepository.findById(studentId).get();
+    }
 }

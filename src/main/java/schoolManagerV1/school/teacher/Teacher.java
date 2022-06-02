@@ -13,7 +13,7 @@ public class Teacher {
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.IDENTITY,
+            strategy = GenerationType.AUTO,
             generator = "teacher_sequence"
     )
     private Long id;
