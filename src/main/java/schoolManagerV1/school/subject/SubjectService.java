@@ -3,7 +3,12 @@ package schoolManagerV1.school.subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import schoolManagerV1.school.student.Student;
+import schoolManagerV1.school.student.StudentRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
@@ -11,10 +16,12 @@ import java.util.Set;
 public class SubjectService {
 
     private final SubjectRepository subjectRepository;
+    private final StudentRepository studentRepository;
 
     @Autowired
-    public SubjectService(SubjectRepository subjectRepository) {
+    public SubjectService(SubjectRepository subjectRepository, StudentRepository studentRepository) {
         this.subjectRepository = subjectRepository;
+        this.studentRepository = studentRepository;
     }
 
     public List<Subject> getSubjects() {
@@ -37,5 +44,17 @@ public class SubjectService {
         Subject subject = subjectRepository.findById(subjectId).get();
 
         return subject.getEnrolledStudents();
+    }
+
+    @Transactional
+    public void removeStudent(Long subjectId, Long studentId) {
+        Subject subject = subjectRepository.findById(subjectId).get();
+        Student student = studentRepository.findById(studentId).get();
+
+        subject.removeStudent(student);
+        student.removeSubject(subject);
+
+        subjectRepository.save(subject);
+        studentRepository.save(student);
     }
 }

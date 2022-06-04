@@ -43,13 +43,13 @@ public class SubjectController {
         /* do error handling, either if Subject or Student object does not exist */
         Subject subject = subjectService.getSubject(subjectId);
         Student student = studentService.getSubject(studentId);
-        subject.enrollStudent(student);
+        subject.addStudent(student);
         subjectService.addNewSubject(subject);
     }
 
-    @DeleteMapping("{subjectId}")
-    public void deleteSubject(@PathVariable("subjectId") Long subjectId) {
-        subjectService.deleteSubject(subjectId);
+    @PutMapping("{subjectId}/removeStudent/{studentId}")
+    public void removeStudent(@PathVariable("subjectId") Long subjectId, @PathVariable("studentId") Long studentId) {
+        subjectService.removeStudent(subjectId, studentId);
     }
 
 }

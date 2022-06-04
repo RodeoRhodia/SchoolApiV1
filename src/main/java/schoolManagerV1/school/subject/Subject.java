@@ -22,7 +22,7 @@ public class Subject {
     )
     Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "student_enrolled",
             joinColumns = @JoinColumn(name = "subject_id"),
@@ -54,7 +54,11 @@ public class Subject {
         return enrolledStudents;
     }
 
-    public void enrollStudent(Student student) {
+    public void addStudent(Student student) {
         enrolledStudents.add(student);
+    }
+
+    public void removeStudent(Student student) {
+        enrolledStudents.remove(student);
     }
 }
