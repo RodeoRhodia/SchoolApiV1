@@ -17,7 +17,7 @@ public class Subject {
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.AUTO,
+            strategy = GenerationType.IDENTITY,
             generator = "subject_sequence"
     )
     Long id;

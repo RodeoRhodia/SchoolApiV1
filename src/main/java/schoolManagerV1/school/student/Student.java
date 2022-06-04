@@ -18,13 +18,13 @@ public class Student {
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.AUTO,
+            strategy = GenerationType.IDENTITY,
             generator = "student_sequence"
     )
     Long id;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "enrolledStudents")
+    @ManyToMany(mappedBy = "enrolledStudents", cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     private Set<Subject> subjects = new HashSet<>();
 
     private String name;

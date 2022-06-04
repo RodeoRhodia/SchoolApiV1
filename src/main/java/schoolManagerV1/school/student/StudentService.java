@@ -26,4 +26,8 @@ public class StudentService {
     public Student getSubject(Long studentId) {
         return studentRepository.findById(studentId).get();
     }
+
+    public void deleteStudent(Long studentId) {
+        studentRepository.deleteById(studentId);
+    }
 }
