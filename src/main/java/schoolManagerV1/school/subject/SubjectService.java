@@ -32,6 +32,11 @@ public class SubjectService {
         return subjectRepository.findAll();
     }
 
+    public Teacher getTeacher(Long subjectId) {
+        Subject subject = subjectRepository.findById(subjectId).get();
+        return subject.getTeacher();
+    }
+
     public void addNewService(Subject subject) {
         subjectRepository.save(subject);
     }
@@ -67,8 +72,11 @@ public class SubjectService {
 
     }
 
-    public Teacher getTeacher(Long subjectId) {
+    public void unassignTeacherFromSubject(Long subjectId, Long teacherId) {
         Subject subject = subjectRepository.findById(subjectId).get();
-        return subject.getTeacher();
+        Teacher teacher = teacherRepository.findById(teacherId).get();
+
+        subject.unassignTeacher(teacher);
+        subjectRepository.save(subject);
     }
 }

@@ -57,7 +57,13 @@ public class SubjectController {
     public void assignTeacherToSubject(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("teacherId") Long teacherId) {
-
         subjectService.assignTeacherToSubject(subjectId, teacherId);
+    }
+
+    @PutMapping("{subjectId}/unassign-teacher/{teacherId}")
+    public void unassignTeacherFromSubject(
+            @PathVariable("subjectId") Long subjectId,
+            @PathVariable("teacherId") Long teacherId) {
+        subjectService.unassignTeacherFromSubject(subjectId, teacherId);
     }
 }

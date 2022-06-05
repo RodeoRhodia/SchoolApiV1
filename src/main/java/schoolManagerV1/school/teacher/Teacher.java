@@ -25,7 +25,7 @@ public class Teacher {
 
     @JsonIgnore
     @OneToMany(mappedBy = "teacher")
-    private Set<Subject> subjects =  new HashSet<>();
+    private Set<Subject> subjects = new HashSet<>();
 
     private String name;
 
@@ -53,5 +53,9 @@ public class Teacher {
 
     public void addSubject(Subject subject) {
         subjects.add(subject);
+    }
+
+    public void removeSubject(Subject subject) {
+        subjects.remove(subject);
     }
 }

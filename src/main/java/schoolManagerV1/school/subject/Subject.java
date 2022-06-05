@@ -76,6 +76,11 @@ public class Subject {
         teacher.addSubject(this);
     }
 
+    public void unassignTeacher(Teacher teacher) {
+        this.teacher = null;
+        teacher.removeSubject(this);
+    }
+
     public Teacher getTeacher() {
         return teacher;
     }
