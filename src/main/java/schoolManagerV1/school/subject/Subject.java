@@ -56,9 +56,11 @@ public class Subject {
 
     public void enrollStudent(Student student) {
         enrolledStudents.add(student);
+        student.getSubjects().add(this);
     }
 
     public void withdrawStudent(Student student) {
         enrolledStudents.remove(student);
+        student.getSubjects().remove(this);
     }
 }
