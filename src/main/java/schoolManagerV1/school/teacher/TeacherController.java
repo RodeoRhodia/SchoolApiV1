@@ -2,8 +2,10 @@ package schoolManagerV1.school.teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import schoolManagerV1.school.subject.Subject;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/teachers")
@@ -19,6 +21,11 @@ public class TeacherController {
     @GetMapping
     public List<Teacher> getTeachers() {
         return teacherService.getTeachers();
+    }
+
+    @GetMapping("{teacherId}/subjects")
+    public Set<Subject> getSubjects(@PathVariable("teacherId") Long teacherId) {
+        return teacherService.getSubjects(teacherId);
     }
 
     @PostMapping

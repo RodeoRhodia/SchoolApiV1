@@ -1,6 +1,8 @@
 package schoolManagerV1.school.subject;
 
+import org.hibernate.annotations.Cascade;
 import schoolManagerV1.school.student.Student;
+import schoolManagerV1.school.teacher.Teacher;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -20,6 +22,7 @@ public class Subject {
             strategy = GenerationType.IDENTITY,
             generator = "subject_sequence"
     )
+    @Column(name = "id")
     Long id;
 
     private String name;
@@ -31,6 +34,10 @@ public class Subject {
             inverseJoinColumns = @JoinColumn(name = "fk_student")
     )
     private Set<Student> enrolledStudents = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_teacher", referencedColumnName = "id")
+    private Teacher teacher;
 
     public Subject(String name) {
         this.name = name;
@@ -62,5 +69,14 @@ public class Subject {
     public void withdrawStudent(Student student) {
         enrolledStudents.remove(student);
         student.getSubjects().remove(this);
+    }
+
+    public void assignTeacher(Teacher teacher) {
+        this.teacher = teacher;
+        teacher.addSubject(this);
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
     }
 }
