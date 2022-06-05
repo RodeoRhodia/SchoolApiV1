@@ -13,10 +13,11 @@ public class StudentConfig {
     CommandLineRunner studentCommandLineRunner(StudentRepository studentRepository) {
         return (args) -> {
             Student s1 = new Student("Johnny Depp");
-            Student s2 = new Student("Sumire Hoxha");
-            Student s3 = new Student("Angelina Clifton");
+//            Student s2 = new Student("Sumire Hoxha");
+//            Student s3 = new Student("Angelina Clifton");
 
-            studentRepository.saveAll(List.of(s1, s2, s3));
+            studentRepository.save(s1);
+//            studentRepository.saveAll(List.of(s1, s2, s3));
         };
     }
 }
