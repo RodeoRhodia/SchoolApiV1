@@ -3,7 +3,6 @@ package schoolManagerV1.school.subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import schoolManagerV1.school.student.Student;
-import schoolManagerV1.school.student.StudentService;
 
 import java.util.List;
 import java.util.Set;
@@ -13,12 +12,10 @@ import java.util.Set;
 public class SubjectController {
 
     private final SubjectService subjectService;
-    private final StudentService studentService;
 
     @Autowired
-    public SubjectController(SubjectService subjectService, StudentService studentService) {
+    public SubjectController(SubjectService subjectService) {
         this.subjectService = subjectService;
-        this.studentService = studentService;
     }
 
     @GetMapping
@@ -33,23 +30,20 @@ public class SubjectController {
 
     @PostMapping
     public void createSubject(@RequestBody Subject subject) {
-        subjectService.addNewSubject(subject);
+        subjectService.addNewService(subject);
     }
 
-    @PutMapping("{subjectId}/students/{studentId}")
+    @PutMapping("{subjectId}/enrollstudent/{studentId}")
     public void enrollStudentToSubject(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("studentId") Long studentId) {
-        /* do error handling, either if Subject or Student object does not exist */
-        Subject subject = subjectService.getSubject(subjectId);
-        Student student = studentService.getSubject(studentId);
-        subject.addStudent(student);
-        subjectService.addNewSubject(subject);
+        subjectService.enrollStudentToSubject(subjectId, studentId);
     }
 
-    @PutMapping("{subjectId}/removeStudent/{studentId}")
-    public void removeStudent(@PathVariable("subjectId") Long subjectId, @PathVariable("studentId") Long studentId) {
-        subjectService.removeStudent(subjectId, studentId);
+    @PutMapping("{subjectId}/withdrawstudent/{studentId}")
+    public void withdrawStudentFromSubject(
+            @PathVariable("subjectId") Long subjectId,
+            @PathVariable("studentId") Long studentId) {
+        subjectService.withdrawStudentFromSubject(subjectId, studentId);
     }
-
 }

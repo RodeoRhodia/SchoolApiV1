@@ -22,15 +22,15 @@ public class Subject {
     )
     Long id;
 
+    private String name;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "student_enrolled",
-            joinColumns = @JoinColumn(name = "subject_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id")
+            name = "subject_members",
+            joinColumns = @JoinColumn(name = "fk_subject"),
+            inverseJoinColumns = @JoinColumn(name = "fk_student")
     )
     private Set<Student> enrolledStudents = new HashSet<>();
-
-    private String name;
 
     public Subject(String name) {
         this.name = name;
@@ -54,11 +54,11 @@ public class Subject {
         return enrolledStudents;
     }
 
-    public void addStudent(Student student) {
+    public void enrollStudent(Student student) {
         enrolledStudents.add(student);
     }
 
-    public void removeStudent(Student student) {
+    public void withdrawStudent(Student student) {
         enrolledStudents.remove(student);
     }
 }

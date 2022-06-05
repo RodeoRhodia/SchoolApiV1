@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import schoolManagerV1.school.subject.Subject;
 import schoolManagerV1.school.subject.SubjectRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PreRemove;
 import java.util.List;
 import java.util.Set;
 
@@ -30,20 +28,19 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public Student getSubject(Long studentId) {
-        return studentRepository.findById(studentId).get();
+    public Set<Subject> getSubjects(Long studentId) {
+        Student student = studentRepository.findById(studentId).get();
+        return student.getSubjects();
     }
 
     public void deleteStudent(Long studentId) {
         Student student = studentRepository.findById(studentId).get();
-        Set<Subject> subjects = student.getSubjects();
+
         for(Subject subject: student.getSubjects()) {
-            student.removeSubject(subject);
-            subject.removeStudent(student);
+            subject.withdrawStudent(student);
+            subjectRepository.save(subject);
         }
 
-        subjectRepository.saveAll(subjects);
         studentRepository.deleteById(studentId);
     }
-
 }

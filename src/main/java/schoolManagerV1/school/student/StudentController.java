@@ -2,8 +2,10 @@ package schoolManagerV1.school.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import schoolManagerV1.school.subject.Subject;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/students")
@@ -21,6 +23,11 @@ public class StudentController {
         return studentService.getStudents();
     }
 
+    @GetMapping("{studentId}/subjects")
+    public Set<Subject> getSubjects(@PathVariable("studentId") Long studentId) {
+        return studentService.getSubjects(studentId);
+    }
+
     @PostMapping
     public void createStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
@@ -31,4 +38,3 @@ public class StudentController {
         studentService.deleteStudent(studentId);
     }
 }
-

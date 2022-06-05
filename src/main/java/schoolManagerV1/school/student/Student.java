@@ -24,8 +24,7 @@ public class Student {
     Long id;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "enrolledStudents", fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
+    @ManyToMany(mappedBy = "enrolledStudents", fetch = FetchType.LAZY)
     private Set<Subject> subjects = new HashSet<>();
 
     private String name;
@@ -51,13 +50,4 @@ public class Student {
     public Set<Subject> getSubjects() {
         return subjects;
     }
-
-    public void addSubject(Subject subject) {
-        subjects.add(subject);
-    }
-
-    public void removeSubject(Subject subject) {
-        subjects.remove(subject);
-    }
 }
-

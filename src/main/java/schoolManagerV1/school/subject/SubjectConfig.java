@@ -12,10 +12,10 @@ public class SubjectConfig {
     @Bean
     CommandLineRunner subjectCommandLineRunner(SubjectRepository subjectRepository) {
         return (args) -> {
-            Subject s1 = new Subject("Math");
-            Subject s2 = new Subject("Art");
-            Subject s3 = new Subject("Science");
-            Subject s4 = new Subject("History");
+            Subject s1 = new Subject("MATH141");
+            Subject s2 = new Subject("RELS271");
+            Subject s3 = new Subject("ENGL101");
+            Subject s4 = new Subject("CMSC132");
 
             subjectRepository.saveAll(List.of(s1, s2, s3, s4));
         };
